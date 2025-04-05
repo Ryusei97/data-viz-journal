@@ -1,0 +1,41 @@
+################ Conda ################
+
+# Define environment name
+ENV_NAME="dataviz_env"
+
+# Delete existing conda env if it exists
+if conda info --envs | grep -q "^$ENV_NAME\s"; then
+    echo "Deleting existing conda environment: $ENV_NAME"
+    conda remove -n "$ENV_NAME" --all -y
+fi
+
+# Create and activate new environment
+conda create -n "$ENV_NAME" python=3.10 -y
+conda activate "$ENV_NAME"
+
+# Install packages
+conda install -y pandas numpy matplotlib seaborn jupyterlab
+pip install plotly altair bokeh pygal
+
+
+
+
+################ Virtual environment ################
+
+# Define environment name and path
+ENV_DIR="venv"
+
+# Delete existing venv if it exists
+if [ -d "$ENV_DIR" ]; then
+    echo "Deleting existing virtual environment: $ENV_DIR"
+    rm -rf "$ENV_DIR"
+fi
+
+# Create and activate new venv
+python3 -m venv "$ENV_DIR"
+source "$ENV_DIR/bin/activate"  # On Windows: "$ENV_DIR\Scripts\activate"
+
+# Upgrade pip and install packages
+pip install --upgrade pip
+pip install pandas numpy matplotlib seaborn jupyterlab \
+            plotly altair bokeh pygal
